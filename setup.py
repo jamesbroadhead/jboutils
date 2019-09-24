@@ -11,7 +11,7 @@ setup(
     url="https://github.com/jboutils",
     packages=["jboutils"],
     package_dir={"": "src"},
-    entry_points={"console_scripts": ["a = b.c:main"]},
+    entry_points={"console_scripts": ["keychain = jboutils.keychain:main"]},
     include_package_data=True,
     zip_safe=False,
 )
