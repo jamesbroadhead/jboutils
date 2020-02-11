@@ -1,7 +1,7 @@
 """ jboutils.find """
 
 import os
-from os.path import abspath, isfile, islink
+from os.path import isfile, islink
 import fnmatch
 
 
@@ -13,8 +13,6 @@ def find(top_dir, pattern=None, filters=None):
     @param pattern: an fnmatch pattern. If unset or None, '*'
     @param filters: a list of functions to filter result paths through
     """
-    top_dir = abspath(top_dir)
-
     if pattern is None:
         pattern = '*'
     if filters is None:
