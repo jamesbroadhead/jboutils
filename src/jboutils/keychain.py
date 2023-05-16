@@ -1,7 +1,10 @@
 """
-Provides a standard interface to the 'keyring' package, storing both username and password for services
+Provides a standard interface to the 'keyring' package, storing both username
+and password for services
 
 Usage:
+  keychain get SERVICE
+  keychain get (--username | --password ) SERVICE
   keychain add SERVICE
   keychain add_json SERVICE FILE
   keychain delete SERVICE
@@ -68,7 +71,7 @@ def get_pickle_data(service):
 
 
 def write_json_data(service, data):
-    return _write_serialized_data(json.dumps, service)
+    return _write_serialized_data(json.dumps, service, data)
 
 
 def write_pickle_data(service, data):
@@ -126,7 +129,15 @@ def _write_serialized_data(serialize_func, service, data):
 def main():
     args = docopt.docopt(__doc__)
 
-    if args["add"]:
+    if args['get']:
+        creds = get_creds(args['SERVICE'])
+        if args['--username']:
+            print(creds[0])
+        elif args['--password']:
+            print(creds[1])
+        else:
+            print(':'.join(creds))
+    elif args["add"]:
         write_creds_interactive(args["SERVICE"])
     elif args["add_json"]:
         with open(args["FILE"]) as fh:
